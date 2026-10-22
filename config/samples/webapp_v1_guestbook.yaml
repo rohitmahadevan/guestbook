@@ -1,0 +1,10 @@
+apiVersion: webapp.rohit.sandbox/v1
+kind: Guestbook
+metadata:
+  labels:
+    app.kubernetes.io/name: guestbook
+    app.kubernetes.io/managed-by: kustomize
+  name: guestbook-sample
+spec:
+  replicas: 2
+  port: 80
