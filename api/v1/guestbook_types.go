@@ -31,23 +31,23 @@ type GuestbookSpec struct {
 	// The following markers will use OpenAPI v3 schema to validate the value
 	// More info: https://book.kubebuilder.io/reference/markers/crd-validation.html
 
-	// image is the container image that serves the guestbook frontend.
-	// +kubebuilder:default="gcr.io/google-samples/gb-frontend:v5"
+	// foo is an example field of Guestbook. Edit guestbook_types.go to remove/update
 	// +optional
-	Image string `json:"image,omitempty"`
-
-	// replicas is the desired number of frontend pods.
+	Foo *string `json:"foo,omitempty"`
+	// infrastructure is the cloud provider this Guestbook runs on.
+	// +kubebuilder:validation:Enum=aws;gcp;azure;homelab
+	// +kubebuilder:default=homelab
+	// +optional
+	Infrastructure string `json:"infrastructure,omitempty"`
+	// replicas is the number of pods to run for this Guestbook.
 	// +kubebuilder:validation:Minimum=0
 	// +kubebuilder:default=1
-	// +optional
 	Replicas *int32 `json:"replicas,omitempty"`
-
-	// port is the container port the frontend listens on and the Service exposes.
-	// +kubebuilder:validation:Minimum=1
-	// +kubebuilder:validation:Maximum=65535
-	// +kubebuilder:default=80
+	// image is the container image to run for this Guestbook.
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:default="nginx:latest"
 	// +optional
-	Port int32 `json:"port,omitempty"`
+	Image string `json:"image,omitempty"`
 }
 
 // GuestbookStatus defines the observed state of Guestbook.

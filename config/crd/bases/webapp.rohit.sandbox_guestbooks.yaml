@@ -39,22 +39,28 @@ spec:
           spec:
             description: spec defines the desired state of Guestbook
             properties:
-              image:
-                default: gcr.io/google-samples/gb-frontend:v5
-                description: image is the container image that serves the guestbook
-                  frontend.
+              foo:
+                description: foo is an example field of Guestbook. Edit guestbook_types.go
+                  to remove/update
                 type: string
-              port:
-                default: 80
-                description: port is the container port the frontend listens on and
-                  the Service exposes.
-                format: int32
-                maximum: 65535
-                minimum: 1
-                type: integer
+              image:
+                default: nginx:latest
+                description: image is the container image to run for this Guestbook.
+                minLength: 1
+                type: string
+              infrastructure:
+                default: homelab
+                description: infrastructure is the cloud provider this Guestbook runs
+                  on.
+                enum:
+                - aws
+                - gcp
+                - azure
+                - homelab
+                type: string
               replicas:
                 default: 1
-                description: replicas is the desired number of frontend pods.
+                description: replicas is the number of pods to run for this Guestbook.
                 format: int32
                 minimum: 0
                 type: integer
