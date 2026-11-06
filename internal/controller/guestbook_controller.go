@@ -75,6 +75,9 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 		log.Info("Deployment not found, creating a new one", "name", req.Name)
 		newDeployment := createDeployment(&guestbook)
+		if err := ctrl.SetControllerReference(&guestbook, newDeployment, r.Scheme); err != nil {
+			return ctrl.Result{}, fmt.Errorf("failed to set controller reference: %w", err)
+		}
 		if err := r.Create(ctx, newDeployment); err != nil {
 			return ctrl.Result{}, fmt.Errorf("failed to create Deployment: %w", err)
 		}
